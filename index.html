@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Professional Email Header Cleaner - Anonymize and process raw email headers with advanced filtering options" />
+  <title>Email Header Cleaner | OPM</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Animated Background Orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="orb orb-5"></div>
+  </div>
+
+  <div class="wrapper" >
+    <!-- Header -->
+    <header class="header" >
+      <div class="header-container">
+        <div class="header-content">
+          <h1 class="header-title">
+            <!-- From Uiverse.io by aryamitra06 -->
+            <div class="loader">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+           【OPM】Header Cleaner
+          </h1>
+          <p class="header-subtitle">
+            Process, clean, and anonymize raw email headers
+          </p>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+      <!-- Two Column Layout: Input + Options -->
+      <div class="main-grid">
+        <!-- Input Section (Left) -->
+        <section class="section input-section" style="height: 680px;">
+          <div class="section-header">
+            <h2><span class="icon icon-email"></span> Input Headers</h2>
+            <button class="btn btn-secondary" id="clearInput">
+              <span class="icon icon-clear"></span> Clear
+            </button>
+          </div>
+          <textarea id="rawHeaders" class="textarea"
+            placeholder="Paste your raw email headers here...&#10;&#10;Example:&#10;From: sender@example.com&#10;To: recipient@example.com&#10;Date: Mon, 1 Jan 2024 12:00:00 +0000&#10;Message-ID: &lt;123456@example.com&gt;&#10;Received: from mail.example.com..."
+            rows="16"
+            style="height: 680px;"></textarea>
+        </section>
+
+        <!-- Controls Section (Right) -->
+        <section class="section controls-section">
+          <h2><span class="icon icon-settings"></span> Processing Options</h2>
+
+          <!-- Domain Replacement -->
+          <div class="input-group">
+            <label class="input-label" for="domainPlaceholder">Domain Replacement:</label>
+            <input type="text" id="domainPlaceholder" class="text-input" placeholder="__Bounce_dn"
+              value="__Bounce_dn" />
+            <span class="input-hint">Leave empty to remove domain entirely</span>
+          </div>
+
+          <!-- Message-ID Tag -->
+          <div class="input-group">
+            <label class="input-label" for="messageIdTag">Message-ID Tag:</label>
+            <input type="text" id="messageIdTag" class="text-input" placeholder="__Uniqid" value="__Uniqid" />
+          </div>
+
+          <!-- Checkboxes -->
+          <div class="options-list">
+            <div class="list-1">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="replaceDate" checked />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">__smtpDate</span>
+              </label>
+
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="replaceTo" checked />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">__To</span>
+              </label>
+
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="removeReceived" checked />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">Keep "Received"</span>
+              </label>
+
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="removeReplyTo" checked />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">Keep "Reply-To"</span>
+              </label>
+            </div>
+            <div class="list-2">
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="addCC" />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">"Cc: __To"</span>
+              </label>
+
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="removeTracking" />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">Remove tracking</span>
+              </label>
+
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="replaceMessageId" checked />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">Message-ID</span>
+              </label>
+
+              <label class="checkbox-wrapper">
+                <input type="checkbox" class="checkbox-input" id="replaceDomains" checked />
+                <span class="checkbox-box"></span>
+                <span class="checkbox-label">all domains</span>
+              </label>
+            </div>
+
+
+
+
+            <!-- Replace Subject with input below -->
+          </div>
+          <div class="option-with-input">
+            <label class="checkbox-wrapper" style="margin-left: 48px;">
+              <input type="checkbox" class="checkbox-input" id="replaceSubject" />
+              <span class="checkbox-box"></span>
+              <span class="checkbox-label" >Replace Subject</span>
+            </label>
+            <input type="text" id="subjectTag" class="text-input " placeholder="__Subject.__Server.__Ip"
+              value="__Subject" />
+          </div>
+        </section>
+      </div>
+
+      <!-- Process Button (Full Width) -->
+      <div class="action-bar">
+        <button class="btn btn-primary" id="processBtn">
+          <span class="icon icon-sparkles"></span> Process Headers
+        </button>
+      </div>
+
+      <!-- Output Section -->
+      <section class="section output-section">
+        <section class="section output-section">
+          <div class="section-header">
+            <h2><span class="icon icon-output"></span> Cleaned Headers</h2>
+            <button class="btn btn-secondary" id="copyBtn" disabled>
+              <span class="icon icon-copy"></span> Copy
+            </button>
+          </div>
+          <textarea id="cleanedHeaders" class="textarea" placeholder="Processed headers will appear here..." rows="12"
+            readonly></textarea>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p>
+          Developed with <span class="footer-heart"></span> by
+          <span class="footer-accent">OUSSAMA MAMOUSS</span> for
+          <span class="footer-accent">MYLERZ Team</span>
+        </p>
+        <p class="footer-year">&copy; 2026 MYLERZ-OPM-HC. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
